@@ -1,0 +1,7 @@
+{
+  "name": "{{ cookiecutter.project_slug }}",
+  "version": "0.0.1",
+  "description": "{{ cookiecutter.project_description }}",
+  "private": true,
+  "workspaces": ["packages/*"]
+}

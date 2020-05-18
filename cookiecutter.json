@@ -1,0 +1,37 @@
+{
+  "project_name": "jam-app",
+  "project_slug": "{{ cookiecutter.project_name | lower | replace(' ', '-') }}",
+  "project_description": "jam app",
+  "license": ["MIT"],
+  "install_dependencies": ["yes", "no"],
+  "packages": {
+    "gatsby": {
+      "name": "gatsby",
+      "template": "cookiecutter-gatsby",
+      "context": {
+        "project_name": "gatsby-app",
+        "project_description": "gatsby app",
+        "license": "{{ cookiecutter.license }}",
+        "github": {
+          "user": "test-user"
+        }
+      }
+    },
+    "strapi": {
+      "name": "strapi",
+      "template": "cookiecutter-strapi",
+      "context": {
+        "project_name": "strapi-app",
+        "project_description": "strapi app",
+        "license": "{{ cookiecutter.license }}",
+        "database": {
+          "development": {
+            "connector": "bookshelf",
+            "host": "127.0.0.1",
+            "port": 27017
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cookiecutter . -o ~/.cookiecutters/temp/ --no-input --overwrite-if-exists
