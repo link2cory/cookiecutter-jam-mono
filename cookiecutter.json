@@ -4,6 +4,8 @@
   "project_description": "jam app",
   "license": ["MIT"],
   "install_dependencies": ["yes", "no"],
+  "is_subproject": ["no", "yes"],
+  "use_git": ["yes", "no"],
   "packages": {
     "gatsby": {
       "name": "gatsby",
