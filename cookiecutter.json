@@ -4,7 +4,7 @@
   "project_description": "jam app",
   "license": ["MIT"],
   "install_dependencies": ["yes", "no"],
-  "is_subproject": ["no", "yes"],
+  "is_subpackage": ["no", "yes"],
   "use_git": ["yes", "no"],
   "use_github": ["yes", "no"],
   "github_user": "",

@@ -8,7 +8,7 @@ from git import Repo
 for name, package in {{ cookiecutter.packages | dictsort }}:
     # make sure that the dependencies for this package don't get installed yet
     context = package['context']
-    context['install_dependencies'] = False
+    context['is_subpackage'] = True
 
     success = cookiecutter(
         package['template'],
@@ -17,13 +17,14 @@ for name, package in {{ cookiecutter.packages | dictsort }}:
         no_input=True
     )
 
-# install dependencies
-{% if cookiecutter.install_dependencies == 'yes' -%}
+# Since all sub-packages are assumed to be yarn-based (for now) we want to wait until
+# all sub-packages are setup and then run yarn install from the root package
+{% if cookiecutter.is_subpackage == 'no' and cookiecutter.install_dependencies == 'yes' -%}
     subprocess.run(['yarn', 'install'])
 {% endif %}
 
 
-{% if cookiecutter.is_subproject == 'no' and cookiecutter.use_git == 'yes' -%}
+{% if cookiecutter.is_subpackage == 'no' and cookiecutter.use_git == 'yes' -%}
     # initialize local repo 
     local_repo = Repo.init(os.getcwd())
     local_repo.git.add(A=True)
