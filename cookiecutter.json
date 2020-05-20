@@ -6,6 +6,9 @@
   "install_dependencies": ["yes", "no"],
   "is_subproject": ["no", "yes"],
   "use_git": ["yes", "no"],
+  "use_github": ["yes", "no"],
+  "github_user": "",
+  "github_token": "",
   "packages": {
     "gatsby": {
       "name": "gatsby",
