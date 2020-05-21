@@ -1,34 +1,39 @@
 import os, subprocess
 
+# cookiecutter jinja2 obj is extracted as an OrderedDict
+from collections import OrderedDict
 from cookiecutter.main import cookiecutter
 from github import Github
 from git import Repo
 
-# run cookiecutter for each sub-package
-for name, package in {{ cookiecutter.packages | dictsort }}:
-    # make sure that the dependencies for this package don't get installed yet
-    context = package['context']
-    context['is_subpackage'] = True
+# extract the context from the cookiecutter jinja2 obj
+# it is much easier to work with this way...
+context = {{ cookiecutter }}
 
+# run cookiecutter for each sub-package
+for name, package in context['packages'].items():
+    # make sure that the dependencies for this package don't get installed yet
+    package_context = package['context']
+    package_context['is_subpackage'] = True
+    
     success = cookiecutter(
         package['template'],
         output_dir='packages',
-        extra_context=context,
+        extra_context=package_context,
         no_input=True
     )
 
-{% if cookiecutter.is_subpackage == 'no' -%}
-    {% if cookiecutter.install_dependencies == 'yes' -%}
+if context['is_subpackage'] == 'no':
+    if context['install_dependencies'] == 'yes':
         subprocess.run(['yarn', 'install'])
-    {% endif %}
 
-    {% if cookiecutter.use_git == 'yes' -%}
-        # initialize local repo 
+    if context['use_git'] == 'yes':
+        # initialize local repo
         local_repo = Repo.init(os.getcwd())
         local_repo.git.add(A=True)
         local_repo.index.commit('Initial Commit, project generated with cookiecutter-jam-app')
 
-        {% if cookiecutter.use_github == 'yes' -%}
+        if context['use_github'] == 'yes':
             # create the github repo
             Github('{{ cookiecutter.github_token }}').get_user().create_repo('{{ cookiecutter.project_slug }}')
             # point local repo to the remote
@@ -38,6 +43,3 @@ for name, package in {{ cookiecutter.packages | dictsort }}:
             )
             #  push to the remote
             remote_repo.push(refspec='{}:{}'.format('master', 'master'))
-        {% endif %}
-    {% endif %}
-{% endif %}
