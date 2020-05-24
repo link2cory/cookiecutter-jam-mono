@@ -4,6 +4,11 @@
   "description": "{{ cookiecutter.project_description }}",
   "private": true,
   "workspaces": ["packages/*"],
+  "scripts": {
+    "version": "lerna version",
+    "changed": "lerna changed",
+    "test": "lerna run test"
+  },
   "devDependencies": {
     "lerna": "^3.21.0"
   }
