@@ -28,6 +28,10 @@ if context['is_subpackage'] == 'no':
         subprocess.run(['yarn', 'install'])
 
     if context['use_git'] == 'yes':
+        # activate .gitignore. It must be stored this way to facilitate versioning of
+        # the cookiecutter.
+        os.rename('gitignore', '.gitignore')
+
         # initialize local repo
         local_repo = Repo.init(os.getcwd())
         local_repo.git.add(A=True)
