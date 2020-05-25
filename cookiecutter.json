@@ -9,6 +9,7 @@
   "use_github": ["yes", "no"],
   "github_user": "",
   "github_token": "",
+  "continuous_integration": ["github_actions"],
   "packages": {
     "gatsby": {
       "name": "gatsby",

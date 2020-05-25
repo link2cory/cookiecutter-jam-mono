@@ -47,3 +47,8 @@ if context['is_subpackage'] == 'no':
             )
             #  push to the remote
             remote_repo.push(refspec='{}:{}'.format('master', 'master'))
+
+    # Remove github actions files unless they are necessary
+    if context['use_github'] == 'no' || context['continuous_integration'] != 'github_actions':
+        # remove the github directory
+        os.rmtree('.github/')
