@@ -17,12 +17,25 @@ def setup_git():
     local_repo.index.commit('Initial Commit, project generated with cookiecutter-jam-app')
 
     if context['use_github'] == 'yes':
-        setup_remote(local_repo)
+        remote = setup_remote(local_repo)
         add_remote(local_repo)
+
+        if context['use_gitflow'] == 'yes':
+            setup_gitflow(remote)
 
 def setup_remote(local_repo):
     # create the github repo
-    github_repo = Github('{{ cookiecutter.github_token }}').get_user().create_repo('{{ cookiecutter.project_slug }}')
+    return Github('{{ cookiecutter.github_token }}').get_user().create_repo('{{ cookiecutter.project_slug }}')
+
+def setup_gitflow(remote):
+    # create the develop branch
+    develop_branch = remote.create_git_ref(
+        ref='refs/heads/develop',
+        sha=remote.get_branch('master').commit.sha
+    )
+
+    # develop will be the default branch
+    remote.edit(default_branch='develop')
 
 def add_remote(local_repo):
     # point local repo to the remote
