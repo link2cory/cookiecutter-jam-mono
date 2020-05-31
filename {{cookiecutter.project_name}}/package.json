@@ -5,8 +5,8 @@
   "private": true,
   "workspaces": ["packages/*"],
   "scripts": {
-    "version": "lerna version",
-    "changed": "lerna changed",
+    "version": "lerna version -a",
+    "changed": "lerna changed -a",
     "test": "lerna run test"
   },
   "devDependencies": {

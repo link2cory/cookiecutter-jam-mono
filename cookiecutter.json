@@ -11,7 +11,7 @@
   "github_token": "",
   "use_gitflow": "yes",
   "continuous_integration": ["github_actions"],
-  "ci_template": "cookiecutter-github-ci",
+  "ci_template": "cookiecutter-github-ci-js",
   "ci_test_name": "test",
   "packages": {
     "gatsby": {
