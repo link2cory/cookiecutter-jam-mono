@@ -97,10 +97,10 @@ for name, package in context['packages'].items():
         no_input=True
     )
 
-if context['use_git'] == 'yes':
-    setup_git()
-
 if context['is_subpackage'] == 'no':
+    if context['use_git'] == 'yes':
+        setup_git()
+
     if context['install_dependencies'] == 'yes':
         subprocess.run(['yarn', 'install'])
 
